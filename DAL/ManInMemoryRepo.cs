@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ThreeLayerApp.Entities;
 
 namespace ThreeLayerApp.DAL
 {
-    public class ManInMemoryRepo : IManRepo
+    public class ManInMemoryRepo : IRepo<Man>
     {
-        private List<Man> _men = new List<Man>();
+        protected List<Man> _men = new();
 
-        public Man Add(Man man)
+        public virtual Man Add(Man man)
         {
-            if (!_men.Any(x => x.Id == man.Id))
+            if (!_men.Contains(man))
             {
                 _men.Add(man);
                 return man;
@@ -22,7 +21,7 @@ namespace ThreeLayerApp.DAL
             }
         }
 
-        public Man Update(int index, Man man)
+        public virtual Man Update(int index, Man man)
         {
             if (!IsInRange(index))
                 throw new ArgumentOutOfRangeException(nameof(index));
@@ -32,37 +31,9 @@ namespace ThreeLayerApp.DAL
             return man;
         }
 
-        public Man Update(Guid id, Man man)
-        {
-            var old = _men.FirstOrDefault(x => x.Id == id);
+        public virtual IEnumerable<Man> GetAll() => _men;
 
-            if (old is not null)
-            {
-                _men[_men.IndexOf(old)] = man;
-            }
-            else
-            {
-                throw new ArgumentException("Man not found", nameof(id));
-            }
-
-            return man;
-        }
-
-        public IEnumerable<Man> GetAll() => _men;
-
-        public bool TryDelete(Guid id)
-        {
-            var man = _men.FirstOrDefault(x => x.Id == id);
-            if (man is not null)
-            {
-                _men.Remove(man);
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool TryDelete(int index)
+        public virtual bool TryDelete(int index)
         {
             bool isInRange = IsInRange(index);
 
@@ -72,7 +43,7 @@ namespace ThreeLayerApp.DAL
             return isInRange;
         }
 
-        private bool IsInRange(int index) 
+        protected bool IsInRange(int index) 
             => 0 <= index && index <= _men.Count;
     }
 }
