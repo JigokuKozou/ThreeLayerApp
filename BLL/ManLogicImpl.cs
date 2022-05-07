@@ -7,9 +7,9 @@ namespace ThreeLayerApp.BLL
 {
     public class ManLogicImpl : IManLogic
     {
-        private IManRepo _manRepo;
+        private IRepo<Man> _manRepo;
 
-        public ManLogicImpl(IManRepo manRepo)
+        public ManLogicImpl(IRepo<Man> manRepo)
         {
             _manRepo = manRepo;
         }
