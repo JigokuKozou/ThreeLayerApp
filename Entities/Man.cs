@@ -2,7 +2,6 @@
 
 namespace ThreeLayerApp.Entities
 {
-    [Serializable]
     public class Man
     {
         protected string _name;
@@ -13,20 +12,17 @@ namespace ThreeLayerApp.Entities
 
         protected float _height;
 
-        public Man(string name, int age, float weigth, float heigth)
+        public Man(string name, int age, float weigth, float height)
         {
-            Id = Guid.NewGuid();
             Name = name;
             Age = age;
             Weigth = weigth;
-            Height = heigth;
+            Height = height;
         }
-
-        public Guid Id { get; init; }
 
         public string Name
         {
-            get => _name;
+            get => _name; 
             set
             {
                 if (value is null)
@@ -71,5 +67,12 @@ namespace ThreeLayerApp.Entities
                 _height = value;
             }
         }
+
+        public override string ToString()
+            => "Человек " + Environment.NewLine +
+            "Имя: " + Name + Environment.NewLine +
+            "Возраст: " + Age + Environment.NewLine +
+            "Вес: " + Weigth + Environment.NewLine +
+            "Рост: " + Height + Environment.NewLine;
     }
 }
