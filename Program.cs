@@ -8,8 +8,8 @@ namespace ThreeLayerApp
     {
         static void Main(string[] args)
         {
-            IManRepo manRepo = new ManInMemoryRepo();
-            IManLogic manLogic = new ManLogicImpl(manRepo);
+            var manRepo = new ManTextRepo();
+            var manLogic = new ManLogicImpl(manRepo);
             ConsoleInterface consoleInterface = new ConsoleInterface(manLogic);
 
             consoleInterface.Start();
