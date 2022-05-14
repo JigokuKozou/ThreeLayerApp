@@ -8,7 +8,7 @@ namespace ThreeLayerApp.DAL
 {
     public class ManTextRepo : IRepo<Man>
     {
-        private const string pathSaves = "Men.txt";
+        public string PathSaves { get; set; } = "Men.txt";
 
         public Man Add(Man man)
         {
@@ -49,17 +49,25 @@ namespace ThreeLayerApp.DAL
             return man;
         }
 
+        public void Clear()
+        {
+            if (File.Exists(PathSaves))
+            {
+                File.Delete(PathSaves);
+            }
+        }
+
         private List<Man> LoadMens()
         {
-            if (File.Exists(pathSaves))
+            if (File.Exists(PathSaves))
             {
-                return JsonSerializer.Deserialize<List<Man>>(File.ReadAllText(pathSaves)) ?? new List<Man>();
+                return JsonSerializer.Deserialize<List<Man>>(File.ReadAllText(PathSaves)) ?? new List<Man>();
             }
 
             return new List<Man>();
         }
 
         private void Save(IEnumerable<Man> men)
-            => File.WriteAllText(pathSaves, JsonSerializer.Serialize(men), Encoding.UTF8);
+            => File.WriteAllText(PathSaves, JsonSerializer.Serialize(men), Encoding.UTF8);
     }
 }
