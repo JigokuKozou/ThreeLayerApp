@@ -61,7 +61,7 @@ namespace ThreeLayerApp.Entities
             get => _height;
             set
             {
-                if (value < 0)
+                if (value <= 0)
                     throw new ArgumentOutOfRangeException(nameof(Height));
 
                 _height = value;
@@ -74,5 +74,29 @@ namespace ThreeLayerApp.Entities
             "Возраст: " + Age + Environment.NewLine +
             "Вес: " + Weigth + Environment.NewLine +
             "Рост: " + Height + Environment.NewLine;
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Man other)
+                return Equals(other);
+            
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode(), Name, Age, Weigth, Height);
+        }
+
+        public bool Equals(Man other)
+        {
+            if (other is null)
+                return false;
+
+            return Name == other.Name && 
+                Age == other.Age && 
+                Weigth == other.Weigth &&
+                Height == other.Height;
+        }
     }
 }
