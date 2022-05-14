@@ -2,29 +2,28 @@
 using System.IO;
 using System.Text;
 using System.Text.Json;
-using ThreeLayerApp.Entities;
 
 namespace ThreeLayerApp.DAL
 {
-    public class ManTextRepo : IRepo<Man>
+    public class TextRepo<T> : IRepo<T>
     {
-        public string PathSaves { get; set; } = "Men.txt";
+        public string PathSaves { get; set; } = nameof(T) + ".txt";
 
-        public Man Add(Man man)
+        public T Add(T item)
         {
-            var men = LoadMens();
-            men.Add(man);
+            var men = LoadItems();
+            men.Add(item);
 
             Save(men);
 
-            return man;
+            return item;
         }
 
-        public IEnumerable<Man> GetAll() => LoadMens();
+        public IEnumerable<T> GetAll() => LoadItems();
 
         public bool TryDelete(int index)
         {
-            var men = LoadMens();
+            var men = LoadItems();
 
             bool result = 0 <= index && index < men.Count;
 
@@ -38,9 +37,9 @@ namespace ThreeLayerApp.DAL
             return result;
         }
 
-        public Man Update(int index, Man man)
+        public T Update(int index, T man)
         {
-            var men = LoadMens();
+            var men = LoadItems();
 
             men[index] = man;
 
@@ -57,17 +56,17 @@ namespace ThreeLayerApp.DAL
             }
         }
 
-        private List<Man> LoadMens()
+        private List<T> LoadItems()
         {
             if (File.Exists(PathSaves))
             {
-                return JsonSerializer.Deserialize<List<Man>>(File.ReadAllText(PathSaves)) ?? new List<Man>();
+                return JsonSerializer.Deserialize<List<T>>(File.ReadAllText(PathSaves)) ?? new List<T>();
             }
 
-            return new List<Man>();
+            return new List<T>();
         }
 
-        private void Save(IEnumerable<Man> men)
+        private void Save(IEnumerable<T> men)
             => File.WriteAllText(PathSaves, JsonSerializer.Serialize(men), Encoding.UTF8);
     }
 }
