@@ -7,32 +7,32 @@ namespace ThreeLayerApp.BLL
 {
     public class ManLogicImpl : IManLogic
     {
-        private IRepo<Man> _manRepo;
+        private IRepo<Man> _repository;
 
-        public ManLogicImpl(IRepo<Man> manRepo)
+        public ManLogicImpl(IRepo<Man> repository)
         {
-            _manRepo = manRepo;
+            _repository = repository;
         }
 
         public Man Create(string name, int age, float weigth, float height)
         {
             var man = new Man(name, age, weigth, height);
-            _manRepo.Add(man);
-            return man;
+
+            return _repository.Add(man);
         }
 
         public Man Update(int index, string name, int age, float weigth, float height)
         {
             var man = new Man(name, age, weigth, height);
-            _manRepo.Update(index, man);
+            _repository.Update(index, man);
 
             return man;
         }
 
-        public bool TryDelete(int index) => _manRepo.TryDelete(index);
+        public bool TryDelete(int index) => _repository.TryDelete(index);
 
-        public IEnumerable<Man> FindAll() => _manRepo.GetAll();
+        public IEnumerable<Man> FindAll() => _repository.GetAll();
 
-        public Man Find(int index) => _manRepo.GetAll().Skip(index).First();
+        public Man Find(int index) => _repository.GetAll().Skip(index).First();
     }
 }
