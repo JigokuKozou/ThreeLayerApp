@@ -53,5 +53,30 @@ namespace ThreeLayerApp.Entities
                 _group = value;
             }
         }
+
+        public override string ToString()
+            => base.ToString() + 
+            "Год начала обучения: " + YearStartOfStudy + Environment.NewLine +
+            "Курс: " + Course + Environment.NewLine +
+            "Группа: " + Group + Environment.NewLine;
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Student other)
+                return Equals(other);
+
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode() 
+            => HashCode.Combine(base.GetHashCode(), YearStartOfStudy, Course, Group);
+
+        public bool Equals(Student other)
+        {
+            return base.Equals(other) &&
+                YearStartOfStudy == other.YearStartOfStudy &&
+                Course == other.Course &&
+                Group == other.Group;
+        }
     }
 }
