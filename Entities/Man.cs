@@ -83,10 +83,8 @@ namespace ThreeLayerApp.Entities
             return base.Equals(obj);
         }
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(base.GetHashCode(), Name, Age, Weigth, Height);
-        }
+        public override int GetHashCode() 
+            => HashCode.Combine(base.GetHashCode(), Name, Age, Weigth, Height);
 
         public bool Equals(Man other)
         {
