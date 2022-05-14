@@ -26,7 +26,20 @@ namespace ThreeLayerApp.BLL
             int yearStartOfStudy, int course, int group)
             => _repository.Update(index, new Student(name, age, weigth, height, yearStartOfStudy, course, group));
 
-        public Student Find(int index) => _repository.GetAll().Skip(index).First();
+        public Student Find(int index)
+        {
+            if (index < 0)
+                throw new System.ArgumentOutOfRangeException(nameof(index));
+
+            try
+            {
+                return _repository.GetAll().Skip(index).First();
+            }
+            catch
+            {
+                throw new System.ArgumentOutOfRangeException(nameof(index));
+            }
+        }
 
         public IEnumerable<Student> FindAll() => _repository.GetAll();
 
