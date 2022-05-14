@@ -33,6 +33,19 @@ namespace ThreeLayerApp.BLL
 
         public IEnumerable<Man> FindAll() => _repository.GetAll();
 
-        public Man Find(int index) => _repository.GetAll().Skip(index).First();
+        public Man Find(int index)
+        {
+            if (index < 0)
+                throw new System.ArgumentOutOfRangeException(nameof(index));
+
+            try
+            {
+                return _repository.GetAll().Skip(index).First();
+            }
+            catch
+            {
+                throw new System.ArgumentOutOfRangeException(nameof(index));
+            }
+        }
     }
 }
