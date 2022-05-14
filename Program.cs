@@ -9,9 +9,9 @@ namespace ThreeLayerApp
     {
         static void Main(string[] args)
         {
-            var manRepo = new MemoryRepo<Man>();
-            var manLogic = new ManLogicImpl(manRepo);
-            ConsoleInterface consoleInterface = new ConsoleInterface(manLogic);
+            var repo = new MemoryRepo<Man>();
+            var logic = new ManLogicImpl(repo);
+            ConsoleInterface consoleInterface = new ConsoleInterface(logic);
 
             consoleInterface.Start();
         }
