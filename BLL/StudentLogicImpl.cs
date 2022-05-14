@@ -7,7 +7,7 @@ namespace ThreeLayerApp.BLL
 {
     public class StudentLogicImpl : IStudentLogic
     {
-        IRepo<Student> _repository;
+        private IRepo<Student> _repository;
 
         public StudentLogicImpl(IRepo<Student> repository)
         {
