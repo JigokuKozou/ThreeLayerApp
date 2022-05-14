@@ -10,8 +10,8 @@ namespace ThreeLayerApp.Entities
 
         private int _group;
 
-        public Student(string name, int age, float weigth, float heigth, 
-            int yearStartOfStudy, int course, int group) : base(name, age, weigth, heigth)
+        public Student(string name, int age, float weigth, float height, 
+            int yearStartOfStudy, int course, int group) : base(name, age, weigth, height)
         {
             YearStartOfStudy = yearStartOfStudy;
             Course = course;
