@@ -494,9 +494,9 @@ namespace ThreeLayerApp.PLL
                     Console.WriteLine("Вес не может быть ниже или равняться 0");
                     return false;
                 }
-                if (height < 0)
+                if (height <= 0)
                 {
-                    Console.WriteLine("Рост не может быть ниже 0");
+                    Console.WriteLine("Рост не может быть ниже или равняться 0");
                     return false;
                 }
             }
